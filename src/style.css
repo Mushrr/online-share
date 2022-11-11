@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+nav {
+  padding: 2px
+}
+
+* {
+  transition: background-color 0.5s ease;
+}
+
+input {
+  outline: none;
+
+  background-color: #cbd5e1;
+}
+
+.glass {
+  outline: none;
+  border-radius: 10px;
+  padding: 2px;
+  margin: 2px;
+  padding-left: 10px;
+  font-family: 'Consolas';
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #cbd5e1;
+}
+
+.glass:hover {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+button {
+  outline: none;
+  border-radius: 10px;
+  padding: 2px;
+  margin: 2px;
+  font-family: 'Consolas';
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #cbd5e1;
+  width: 90%;
+}
+
+button:hover {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=checkbox] {
+  background: #000;
+}
