@@ -16,6 +16,8 @@ defineProps<{
     rooms: roomStore[]
 }>()
 
+
+
 </script>
 
 <style scoped>

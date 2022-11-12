@@ -67,6 +67,11 @@ const playerName = ref("");
 const loginWindow = ref(true);
 const showUp = ref(false);
 
+player.socket.on("room:update", (rooms) => {
+  console.log(rooms);
+  currentRooms.value = rooms
+})
+
 if (!player.auth) {
   loginWindow.value = true;
 } else {
