@@ -29,7 +29,9 @@
                 </span>
             </span>
         </div>
-        <textarea v-model="currentResource" class="w-[60%] h-[60%] mb-5 p-10 text-white outline-none bg-slate-600 dark:bg-slate-800 border-2 border-black ">
+        <textarea ref="inputArea" v-model="currentResource"
+            class="w-[60%] h-[60%] mb-5 p-10 text-white outline-none bg-slate-600 dark:bg-slate-800 border-2 border-black "
+            @input="update($event)">
 
         </textarea>
     </div>
@@ -64,10 +66,26 @@ function start() {
     player.socket.emit("master:start");
 }
 
+
+
+const inputArea = ref(null);
+function update() {
+    currentPosition.value = inputArea.value.selectionStart;
+    console.log(currentPosition.value);
+    setTimeout(() => {
+        player.socket.emit("resource:update", currentResource.value);
+        console.log(currentResource.value);
+        console.log("向远程发送了消息");
+    }, 10);
+
+}
+
+const currentPosition = ref(0);
+
 function updateData(serverData: string) {
     const frags = serverData.split("\n");
     const currentDataFrags = currentResource.value.split("\n");
-    
+
     const intersectionLenght = Math.min(frags.length, currentDataFrags.length);
     for (let i = 0; i < intersectionLenght; i++) {
         if (frags[i] !== currentDataFrags[i]) {
@@ -84,22 +102,23 @@ function updateData(serverData: string) {
             currentDataFrags.pop();
         }
     }
+    // DOM树渲染
     currentResource.value = currentDataFrags.join("\n");
 }
 
 // 资源已经加载，不再等待用户连接
 player.socket.on("resource:load", (data, version) => {
-    if (waiting.value) {
-        setInterval(() => {
-            player.socket.emit("resource:update", currentResource.value);
-            console.log(currentResource.value);
-            console.log("向远程发送了消息");
-        }, 1000)
-    }
     waiting.value = false; // 推出等待阶段
-
     console.log("更新了");
+    const position = (inputArea.value! as HTMLInputElement).selectionStart;
     updateData(data);
+    console.log((inputArea.value! as HTMLInputElement).selectionStart);    
+    console.log("position", position);
+
+    setTimeout(() => {
+        (inputArea.value! as HTMLInputElement).setSelectionRange(position, position);
+    }, 1);
+    
     console.log(typeof data);
 });
 
@@ -111,7 +130,7 @@ setInterval(fetchAllUsers, 2000);
 
 player.socket.on("room:getuser", (data: any) => {
     allPlayers.value = data.allPlayers;
-    
+
 })
 
 
