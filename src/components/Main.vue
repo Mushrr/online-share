@@ -27,7 +27,7 @@
   </div>
   <div v-if="loginWindow"
     class="absolute flex flex-row items-center place-content-center h-full w-full backdrop-blur-sm">
-    <div class="p-2 w-72 h-52 border-2 rounded-xl border-gray-500 flex flex-col place-content-between">
+    <div class="p-2 w-72 h-52 border-2 rounded-xl border-gray-500 dark:border-gray-600 flex flex-col place-content-between">
       <div id="notification" class="text-center">
         <el-icon>
           <Warning color="#ff0000">
@@ -36,15 +36,15 @@
         你需要先表明你的身份
       </div>
       <div class="flex flex-col items-center">
-        <div class="glass w-[90%]">
+        <div class="glass w-[90%] dark:bg-gray-500">
           <label class="mr-2" for="playerName">
             <el-icon>
               <User color="black" />
             </el-icon>
           </label>
-          <input class="text-center" id="playerName" v-model="playerName" type="text" @keypress.enter="connect" />
+          <input class="text-center dark:bg-gray-500 dark:text-gray-300" id="playerName" v-model="playerName" type="text" @keypress.enter="connect" />
         </div>
-        <button @click="connect">Submit</button>
+        <button class="dark:bg-gray-500 dark:text-gray-300" @click="connect">Submit</button>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
 import playerState, { roomStore, RoomProfile } from '../state/playerState';
 import Nav from "./Nav.vue"
 import { ref, watch } from "vue";
-import { ElIcon } from "element-plus";
+import { ElIcon, ElNotification } from "element-plus";
 import { Warning, User, Plus, Refresh } from "@element-plus/icons-vue";
 import { storeToRefs } from 'pinia';
 import RoomStore from "./RoomStore.vue";
@@ -70,6 +70,15 @@ const showUp = ref(false);
 player.socket.on("room:update", (rooms) => {
   console.log(rooms);
   currentRooms.value = rooms
+})
+
+player.socket.on("room:error", (err) => {
+  ElNotification({
+    title: "Error",
+    message: err,
+    type: "error",
+    duration: 0
+  })
 })
 
 if (!player.auth) {

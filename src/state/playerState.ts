@@ -38,6 +38,7 @@ const playerState = defineStore("user", {
             maxPlayers: 2,
             master: "test",
             type: "text",
+            needKey: false
         }],
         playerCurrentRoom: "",
         rooms: [""],

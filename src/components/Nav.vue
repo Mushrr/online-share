@@ -37,6 +37,7 @@ watch(isDark, () => {
     } else {
         document.documentElement.classList.remove('dark');
     }
+    localStorage.setItem('dark', isDark.value ? 'true' : 'false');
 })
 
 </script>

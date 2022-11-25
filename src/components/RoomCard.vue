@@ -50,7 +50,7 @@
             </div>
         </div>
         <!-- {{ room }} -->
-
+        
     </div>
 </template>
 
@@ -59,10 +59,15 @@ import { roomStore } from '../state/playerState';
 import { Document, Key, User } from "@element-plus/icons-vue"
 import { ElIcon, ElNotification } from 'element-plus';
 import usePlayer from '../state/playerState';
-import { ref } from 'vue';
+import { h, ref, render } from 'vue';
 
 const props = defineProps<{
     room: roomStore
+}>()
+
+const emiter = defineEmits<{
+    (event: 'join', room: roomStore): void
+    // 加入房间事件
 }>()
 
 const key = ref("");
@@ -80,6 +85,7 @@ function join() {
             type: "warning",
             duration: 0,
         })
+        emiter('join', props.room);// 触发
     } else {
         player.joinRoom(props.room.id, props.room.name, null);
     }

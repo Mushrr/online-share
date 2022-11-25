@@ -60,7 +60,7 @@
 <script lang='ts' setup>
 import { User, Key, Select, HomeFilled } from "@element-plus/icons-vue";
 import { ElCheckbox, ElNotification } from "element-plus";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 interface RoomProfile {
     roomName: string,
@@ -88,6 +88,14 @@ const roomProfile = ref({
     maxPlayers: 0,
     needKey: false,
     type: "text"
+})
+
+watch(roomProfile.value, (nv) => {
+    if (nv.key) {
+        roomProfile.value.needKey = true
+    } else {
+        roomProfile.value.needKey = false
+    }
 })
 
 function createRoom() {
