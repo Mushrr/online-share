@@ -30,7 +30,10 @@
             </span>
         </div>
         <textarea ref="inputArea" v-model="currentResource"
-            class="w-[60%] h-[60%] mb-5 p-10 text-white outline-none bg-slate-600 dark:bg-slate-800 border-2 border-black "
+            class="w-[60%] h-[60%] mb-5 p-10 text-white outline-none 
+            bg-slate-600 dark:bg-slate-800 border-2 border-black
+            font-mono
+            "
             @input="update($event)">
 
         </textarea>

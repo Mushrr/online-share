@@ -42,7 +42,7 @@ const playerState = defineStore("user", {
         }],
         playerCurrentRoom: "",
         rooms: [""],
-        socket: io(import.meta.env.VITE_URL_PREFIX || "http://10.130.119.169:3000", {
+        socket: io(import.meta.env.VITE_URL_PREFIX || "http://localhost:3000", {
             autoConnect: false,
         }) as Socket,
 
