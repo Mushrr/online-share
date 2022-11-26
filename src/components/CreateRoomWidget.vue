@@ -43,7 +43,7 @@
                         text
                     </option>
 
-                    <option>
+                    <option disabled>
                         canvas
                     </option>
                 </select>
